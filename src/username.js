@@ -1,18 +1,5 @@
 export default function username(url) {
-  let result = url;
-  if (result.indexOf('/') >= 0) {
-    const pattern = /\/([\w\d?=/-]*)$/gi;
-    const match = pattern.exec(url);
-    result = match[1];
-  }
-  if (result.indexOf('?') >= 0) {
-    result = result.substring(0, result.indexOf('?'));
-  }
-  if (result.indexOf('/') >= 0) {
-    result = result.substring(0, result.indexOf('/'));
-  }
-  if (result.indexOf('@') !== 0) {
-    result = '@' + result;
-  }
-  return result;
+  const re = new RegExp('@?(https?:)?(\/\/)?((telegram|vk|vkontakte|www.vk|twitter|www.twitter|github)[^\/]*\/)?([a-zA-Z0-9.]*)', 'i');
+	const result = url.match(re)[5];
+	return '@' + result;
 }
