@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
+import username from './username';
+
 const app = express();
 app.use(cors());
 app.get('/', (req, res) => {
@@ -38,22 +40,7 @@ app.get('/task2B', (req, res) => {
 });
 
 app.get('/task2C', (req, res) => {
-  const username = req.query.username;
-  let result = username;
-  if (result.indexOf('/') >= 0) {
-    const pattern = /\/([\w\d?=/-]*)$/gi;
-    const match = pattern.exec(username);
-    result = match[1];
-  }
-  if (result.indexOf('?') >= 0) {
-    result = result.substring(0, result.indexOf('?'));
-  }
-  if (result.indexOf('/') >= 0) {
-    result = result.substring(0, result.indexOf('/'));
-  }
-  if (result.indexOf('@') !== 0) {
-    result = '@' + result;
-  }
+  const result = username(req.query.username)
   res.send(result);
 });
 
