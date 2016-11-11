@@ -17,6 +17,10 @@ app.get('/task2A', (req, res) => {
 app.get('/task2B', (req, res) => {
   const fullname = req.query.fullname || '     ';
   const array = fullname.split(' ');
+  const re = /^.*[\d_/-].*$/gi;
+  if (fullname.match(re)) {
+    res.send('Invalid fullname');
+  }
   switch (array.length) {
     case 3:
       res.send(array[2] + ' ' + array[0].charAt(0) + '. ' + array[1].charAt(0) + '.');
