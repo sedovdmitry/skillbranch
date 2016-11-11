@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 
-import username from './username';
-
 const app = express();
 app.use(cors());
 app.get('/', (req, res) => {
@@ -40,8 +38,10 @@ app.get('/task2B', (req, res) => {
 });
 
 app.get('/task2C', (req, res) => {
-  const result = username(req.query.username)
-  res.send(result);
+  const query = req.query.username;
+  const regExp = new RegExp('(https?:)?(\/\/)?(www\.)?([a-z0-9\-][^\/]*\/)?(@)?([a-z0-9][\.]*[\-]*[\_]*[^\/]+)', 'i');
+  const username = query.match(regExp);
+  res.send('@'+username[6]);
 });
 
 app.listen(3000, () => {
